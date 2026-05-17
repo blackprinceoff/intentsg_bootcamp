@@ -1,4 +1,4 @@
-package com.tasks;
+package com.tasks.model;
 
 public class RightTriangle extends Figure {
 

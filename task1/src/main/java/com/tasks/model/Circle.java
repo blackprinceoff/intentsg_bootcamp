@@ -1,4 +1,6 @@
-package com.tasks;
+package com.tasks.model;
+
+import com.tasks.annotation.DefaultArea;
 
 public class Circle extends Figure {
 
@@ -10,6 +12,7 @@ public class Circle extends Figure {
     }
 
     @Override
+    @DefaultArea
     public double getArea() {
         return Math.PI * radius * radius;
     }

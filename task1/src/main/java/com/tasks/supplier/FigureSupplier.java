@@ -1,4 +1,6 @@
-package com.tasks;
+package com.tasks.supplier;
+
+import com.tasks.model.*;
 
 import java.util.Random;
 
