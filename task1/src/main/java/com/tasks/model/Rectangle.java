@@ -1,5 +1,7 @@
 package com.tasks.model;
 
+import java.util.Objects;
+
 public class Rectangle extends Figure {
 
     private final int length;
@@ -22,4 +24,16 @@ public class Rectangle extends Figure {
                 + width + " units, color: " + getColor());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Rectangle rectangle = (Rectangle) o;
+        return length == rectangle.length && width == rectangle.width;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), length, width);
+    }
 }
