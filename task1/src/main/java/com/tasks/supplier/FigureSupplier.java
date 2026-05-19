@@ -1,6 +1,12 @@
 package com.tasks.supplier;
 
-import com.tasks.model.*;
+import com.tasks.model.Circle;
+import com.tasks.model.Figure;
+import com.tasks.model.FigureType;
+import com.tasks.model.IsoscelesTrapezoid;
+import com.tasks.model.Rectangle;
+import com.tasks.model.RightTriangle;
+import com.tasks.model.Square;
 
 import java.util.Random;
 

@@ -1,6 +1,5 @@
 package com.tasks.runners;
 
-import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,11 +20,12 @@ public class Task3 {
             figures.add(figureSupplier.getRandomFigure());
         }
 
-        groupByFigureType(figures);
+        Map<String, List<Figure>> groupedMap = groupByFigureType(figures);
+
         uniqueFiguresByColor(figures);
         topThreeFiguresByArea(figures);
         avgAreaByColor(figures);
-        immutableCatalog(figures);
+        immutableCatalog(groupedMap);
     }
 
     private static Map<String, List<Figure>> groupByFigureType(List<Figure> figures) {
@@ -34,13 +34,13 @@ public class Task3 {
             groupedByType.computeIfAbsent(figure.getClass().getSimpleName(), k -> new ArrayList<>()).add(figure);
         }
         groupedByType.entrySet().stream()
-                .sorted((entry1, entry2) -> entry1.getKey().compareTo(entry2.getKey()))
+                .sorted(Map.Entry.comparingByKey())
                 .forEach(entry -> {
                     double sum = entry.getValue().stream()
                             .mapToDouble(Figure::getArea)
                             .sum();
                     System.out.println(
-                            entry.getKey() + ": кількість = " + entry.getValue().size() + ", загальна площа = " + sum);
+                            entry.getKey() + ": count = " + entry.getValue().size() + ", total area = " + sum);
                 });
         return groupedByType;
     }
@@ -51,26 +51,30 @@ public class Task3 {
             uniqueByColor.computeIfAbsent(figure.getColor(), k -> new HashSet<>()).add(figure);
         }
         uniqueByColor.entrySet().stream()
-                .sorted((entry1, entry2) -> entry1.getKey().compareTo(entry2.getKey()))
+                .sorted(Map.Entry.comparingByKey())
                 .forEach(entry -> {
-                    System.out.println(entry.getKey() + ": унікальних фігур = " + entry.getValue().size());
+                    System.out.println(entry.getKey() + ": unique figures = " + entry.getValue().size());
                 });
 
-        Set<Figure> uniqueFigures = new HashSet<>();
-        Figure uniqueFigure1 = new Circle("red", 5);
-        Figure uniqueFigure2 = new Circle("red", 5);
-        uniqueFigures.add(uniqueFigure1);
-        uniqueFigures.add(uniqueFigure2);
+        Set<Figure> reds = uniqueByColor.computeIfAbsent("red", k -> new HashSet<>());
+        int before = reds.size();
 
-        System.out.println("Кількість унікальних фігур: " + uniqueFigures.size());
+        reds.add(new Circle("red", 5));
+        reds.add(new Circle("red", 5));
+
+        int after = reds.size();
+
+        System.out.println("Red Set size: " + before + " -> " + after + " (expected +1)");
     }
 
+    // list.sort() calls Collections.sort() under the hood in Java 8+.
+    // Both modify the list in-place, but using a Stream is safer here to avoid side effects.
+
     private static void topThreeFiguresByArea(List<Figure> figures) {
-        figures.sort(Comparator.comparingDouble(Figure::getArea).reversed());
-        for (int i = 0; i < 3; i++) {
-            Figure f = figures.get(i);
-            System.out.println(f.getClass().getSimpleName() + " [" + f.getColor() + "] area=" + f.getArea());
-        }
+        figures.stream().sorted(Comparator.comparingDouble(Figure::getArea).reversed())
+                .limit(3)
+                .forEach(figure -> System.out.println(
+                        figure.getClass().getSimpleName() + " [" + figure.getColor() + "] area=" + figure.getArea()));
     }
 
     private static void avgAreaByColor(List<Figure> figures) {
@@ -84,22 +88,21 @@ public class Task3 {
         }
 
         statsByColor.entrySet().stream()
-                .sorted((entry1, entry2) -> entry1.getKey().compareTo(entry2.getKey()))
+                .sorted(Map.Entry.comparingByKey())
                 .forEach(entry -> {
                     double avg = entry.getValue()[0] / entry.getValue()[1];
-                    System.out.println(entry.getKey() + ": середня площа = " + avg);
+                    System.out.println(entry.getKey() + ": average area = " + avg);
                 });
     }
 
-    private static void immutableCatalog(List<Figure> figures) {
+    private static void immutableCatalog(Map<String, List<Figure>> originalMap) {
 
-        Map<String, List<Figure>> originalMap = groupByFigureType(figures);
         Map<String, List<Figure>> unmodifiable = Collections.unmodifiableMap(originalMap);
 
         try {
             unmodifiable.put("test", new ArrayList<>());
         } catch (UnsupportedOperationException e) {
-            System.out.println("Летить UnsupportedOperationException, бо мапа read-only.");
+            System.out.println("UnsupportedOperationException is thrown because the map is read-only.");
         }
 
         originalMap.get("Circle").add(new Circle("black", 10));
