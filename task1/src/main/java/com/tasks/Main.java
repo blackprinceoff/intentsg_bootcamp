@@ -7,8 +7,8 @@ import com.tasks.supplier.FigureSupplier;
 
 public class Main {
     public static void main(String[] args) {
-        // Task1.run(new FigureSupplier());
-        // Task2.run(new FigureSupplier());
+        Task1.run(new FigureSupplier());
+        Task2.run(new FigureSupplier());
         Task3.run(new FigureSupplier());
     }
 }

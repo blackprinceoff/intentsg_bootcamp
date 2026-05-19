@@ -20,13 +20,14 @@ public abstract class Figure {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Figure figure = (Figure) o;
-        return Objects.equals(color, figure.color);
+        return Objects.equals(getColor(), figure.getColor());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(color);
+        return Objects.hashCode(getColor());
     }
 }

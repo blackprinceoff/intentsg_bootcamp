@@ -25,6 +25,7 @@ public class Task3 {
         uniqueFiguresByColor(figures);
         topThreeFiguresByArea(figures);
         avgAreaByColor(figures);
+        immutableCatalog(figures);
     }
 
     private static Map<String, List<Figure>> groupByFigureType(List<Figure> figures) {
@@ -67,7 +68,8 @@ public class Task3 {
     private static void topThreeFiguresByArea(List<Figure> figures) {
         figures.sort(Comparator.comparingDouble(Figure::getArea).reversed());
         for (int i = 0; i < 3; i++) {
-            figures.get(i).draw();
+            Figure f = figures.get(i);
+            System.out.println(f.getClass().getSimpleName() + " [" + f.getColor() + "] area=" + f.getArea());
         }
     }
 
@@ -92,7 +94,7 @@ public class Task3 {
     private static void immutableCatalog(List<Figure> figures) {
 
         Map<String, List<Figure>> originalMap = groupByFigureType(figures);
-        Map<String, List<Figure>> unmodifiable = Collections.unmodifiableMap(groupByFigureType(originalMap));
+        Map<String, List<Figure>> unmodifiable = Collections.unmodifiableMap(originalMap);
 
         try {
             unmodifiable.put("test", new ArrayList<>());
