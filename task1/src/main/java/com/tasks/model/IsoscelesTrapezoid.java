@@ -1,5 +1,7 @@
 package com.tasks.model;
 
+import java.util.Objects;
+
 public class IsoscelesTrapezoid extends Figure {
 
     private final int topBase;
@@ -26,4 +28,17 @@ public class IsoscelesTrapezoid extends Figure {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        IsoscelesTrapezoid that = (IsoscelesTrapezoid) o;
+        return topBase == that.topBase && bottomBase == that.bottomBase && height == that.height;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), topBase, bottomBase, height);
+    }
 }
