@@ -1,20 +1,13 @@
 package com.tasks;
 
+import com.tasks.runners.Task1;
+import com.tasks.runners.Task2;
+import com.tasks.supplier.FigureSupplier;
+
 public class Main {
     public static void main(String[] args) {
-        FigureSupplier figureSupplier = new FigureSupplier();
-        Figure[] figures = new Figure[6];
+        Task1.run(new FigureSupplier());
+        Task2.run(new FigureSupplier());
 
-        for (int i = 0; i < figures.length; i++) {
-            if (i < figures.length / 2) {
-                figures[i] = figureSupplier.getRandomFigure();
-            } else {
-                figures[i] = figureSupplier.getDefaultFigure();
-            }
-        }
-
-        for (Figure figure : figures) {
-            figure.draw();
-        }
     }
 }
