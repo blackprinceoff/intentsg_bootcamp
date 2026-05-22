@@ -4,6 +4,7 @@ import com.tasks.runners.Task1;
 import com.tasks.runners.Task2;
 import com.tasks.runners.Task3;
 import com.tasks.runners.Task4;
+import com.tasks.runners.Task5;
 import com.tasks.supplier.FigureSupplier;
 
 public class Main {
@@ -12,5 +13,6 @@ public class Main {
         Task2.run(new FigureSupplier());
         Task3.run(new FigureSupplier());
         Task4.run(new FigureSupplier());
+        Task5.run();
     }
 }
