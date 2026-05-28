@@ -1,0 +1,301 @@
+// кольори
+$color-bg: #fff;
+$color-bg-secondary: #f5f5f7;
+$color-text: #1d1d1f;
+$color-text-secondary: #86868b;
+$color-accent: #0071e3;
+$color-accent-hover: #0077ed;
+$color-border: #d2d2d7;
+
+$font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+$radius: 18px;
+$radius-sm: 10px;
+$transition: 0.25s ease;
+
+$bp-mobile: 768px;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-main;
+  line-height: 1.5;
+  color: $color-text;
+  background-color: $color-bg;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid $color-border;
+
+  &__container {
+    @include container;
+    @include flex-center;
+    justify-content: space-between;
+    height: 48px;
+  }
+
+  &__logo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $color-text;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+
+  &__nav-list {
+    @include flex-center;
+    list-style: none;
+    gap: 28px;
+  }
+
+  &__nav-link {
+    color: $color-text;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    transition: color $transition;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}
+
+.products {
+  flex: 1;
+
+  &__hero {
+    text-align: center;
+    padding: 64px 20px 40px;
+    background-color: $color-bg-secondary;
+  }
+
+  &__title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: $color-text;
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    font-size: 1.15rem;
+    color: $color-text-secondary;
+    font-weight: 400;
+  }
+
+  &__list {
+    @include container;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+}
+
+.product-card {
+  background: $color-bg;
+  border-radius: $radius;
+  overflow: hidden;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform $transition, box-shadow $transition;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  &__image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__content {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    color: $color-text;
+  }
+
+  &__description {
+    font-size: 0.88rem;
+    color: $color-text-secondary;
+    margin-bottom: 18px;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  &__price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-text;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  &__button {
+    padding: 11px 24px;
+    background-color: $color-accent;
+    color: #fff;
+    border: none;
+    border-radius: 980px; // pill
+    font-family: $font-main;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color $transition;
+    align-self: flex-start;
+
+    &:hover {
+      background-color: $color-accent-hover;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+.footer {
+  background-color: $color-bg-secondary;
+  border-top: 1px solid $color-border;
+  padding: 32px 0 24px;
+
+  &__container {
+    @include container;
+    @include flex-center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  &__contacts {
+    font-size: 0.85rem;
+    color: $color-text-secondary;
+    line-height: 1.7;
+  }
+
+  &__socials {
+    @include flex-center;
+    list-style: none;
+    gap: 24px;
+  }
+
+  &__social-link {
+    color: $color-accent;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color $transition;
+
+    &:hover {
+      color: $color-text;
+    }
+  }
+
+  &__copy {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: $color-text-secondary;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: $bp-mobile) {
+  .header {
+    &__container {
+      flex-direction: column;
+      height: auto;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      gap: 10px;
+    }
+
+    &__nav-list {
+      gap: 16px;
+    }
+  }
+
+  .products {
+    &__hero {
+      padding: 40px 16px 28px;
+    }
+
+    &__title {
+      font-size: 1.85rem;
+    }
+
+    &__subtitle {
+      font-size: 1rem;
+    }
+
+    &__list {
+      padding-top: 28px;
+      padding-bottom: 40px;
+    }
+  }
+
+  .product-card {
+    width: 100%;
+  }
+
+  .footer {
+    &__container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__socials {
+      justify-content: center;
+    }
+
+    &__copy {
+      margin-top: 8px;
+    }
+  }
+}
