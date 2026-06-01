@@ -1,0 +1,17 @@
+{
+  "name": "html-css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass scss/style.scss css/style.css",
+    "watch": "sass --watch scss/style.scss css/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "sass": "^1.100.0"
+  }
+}
